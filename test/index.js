@@ -65,18 +65,20 @@ test('types', function (t) {
 
 
 test('polyfill', function (t) {
-    var iter;
+    var iter, current;
 
     iter = ['a', 'b', 'c'].entries();
-    iter.kind = '';
 
     t.equal(typeof iter, 'object');
     t.equal(iter.constructor.name, 'ArrayIterator');
     t.equal(typeof iter.next, 'function');
 
-    t.throws(function () {
-        iter.next();
-    });
+    while ((current = iter.next()) && !current.done) {
+        t.ok(current);
+        t.ok(typeof current.value[0] === 'number');
+        t.ok(typeof current.value[1] === 'string');
+        t.ok(!current.done);
+    }
     t.end();
 });
 
@@ -195,7 +197,64 @@ test('array-like', function (t) {
     run('a', 'b', 'c');
 });
 
+
 test('not array-like', function (t) {
+    var arr, iter, current;
+
+    arr = { a: 'a', b: 'b', c: 'c' };
+    iter = entries(arr);
+
+    t.equal(typeof iter, 'object');
+    t.equal(iter.constructor.name, 'ArrayIterator');
+    t.equal(typeof iter.next, 'function');
+
+    current = iter.next();
+
+    t.ok(current);
+    t.ok(current.hasOwnProperty('value'));
+    t.ok(current.hasOwnProperty('done'));
+    t.equal(current.value, undefined);
+    t.equal(current.done, true);
+    t.end();
+});
+
+
+test('incompatible type', function (t) {
+   var arr, iter;
+
+    arr = ['a', 'b', 'c'];
+    iter = entries(arr);
+
+    t.equal(typeof iter, 'object');
+    t.equal(iter.constructor.name, 'ArrayIterator');
+    t.equal(typeof iter.next, 'function');
+
+    t.throws(function () {
+        iter.next.call({});
+    });
+
+    t.end();
+});
+
+test('iteration complete.', function (t) {
+    var iter, current;
+
+    iter = ['a', 'b', 'c'].entries();
+
+    t.equal(typeof iter, 'object');
+    t.equal(iter.constructor.name, 'ArrayIterator');
+    t.equal(typeof iter.next, 'function');
+
+    while ((current = iter.next()) && !current.done) {
+        t.ok(current);
+        t.ok(typeof current.value[0] === 'number');
+        t.ok(typeof current.value[1] === 'string');
+        t.ok(!current.done);
+    }
+
+    current = iter.next();
+    t.ok(typeof current.value === 'undefined');
+    t.ok(current.done);
 
     t.end();
 });

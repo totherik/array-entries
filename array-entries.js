@@ -18,14 +18,13 @@
     function NonEnumerable(obj) {
         Object.keys(obj).forEach(function (key) {
             Object.defineProperty(obj, key, {
-                value: obj[key],
-                writable: true,
                 enumerable: false
             });
         });
         return obj;
     }
 
+    
     function ArrayIterator(obj) {
         this.iteratedObject = ToObject(obj);
         this.index = 0;
@@ -41,7 +40,7 @@
         AssertProperty(self, 'kind');
 
         if (self.iteratedObject === undefined) {
-            return { done: true };
+            return { value: undefined, done: true };
         }
 
         object = self.iteratedObject;
@@ -50,7 +49,7 @@
 
         if (index >= (object.length || 0)) {
             self.iteratedObject = undefined;
-            return { done: true };
+            return { value: undefined, done: true };
         }
 
         self.index += 1;
@@ -79,4 +78,4 @@
 
     exports.arrayEntries = Function.prototype.call.bind(Array.prototype.entries);
 
-}(typeof module !== 'undefined' ? module.exports : window));
+}(typeof exports !== 'undefined' ? exports : this));
