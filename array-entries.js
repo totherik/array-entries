@@ -15,6 +15,17 @@
         }
     }
 
+    function NonEnumerable(obj) {
+        Object.keys(obj).forEach(function (key) {
+            Object.defineProperty(obj, key, {
+                value: obj[key],
+                writable: true,
+                enumerable: false
+            });
+        });
+        return obj;
+    }
+
     function ArrayIterator(obj) {
         this.iteratedObject = ToObject(obj);
         this.index = 0;
@@ -62,7 +73,7 @@
 
     if (typeof Array.prototype.entries !== 'function') {
         Array.prototype.entries = function entries() {
-            return new ArrayIterator(this);
+            return NonEnumerable(new ArrayIterator(this));
         };
     }
 
