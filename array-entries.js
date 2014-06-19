@@ -24,7 +24,7 @@
         return obj;
     }
 
-    
+
     function ArrayIterator(obj) {
         this.iteratedObject = ToObject(obj);
         this.index = 0;

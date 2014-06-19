@@ -25,7 +25,7 @@
     "url": "https://github.com/totherik/array-entries/issues"
   },
   "homepage": "https://github.com/totherik/array-entries",
-  "dependencies": {
+  "devDependencies": {
     "istanbul": "^0.2.11",
     "jshint": "^2.5.1",
     "tape": "^2.13.3"
