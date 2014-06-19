@@ -1,0 +1,33 @@
+{
+  "name": "array-entries",
+  "version": "0.0.0",
+  "description": "[].entries() polyfill.",
+  "main": "array-entries.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tape test/*.js",
+    "cover": "istanbul cover tape -- test/*.js",
+    "lint": "jshint -c .jshintrc arra-entries.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/totherik/array-entries.git"
+  },
+  "keywords": [
+    "array",
+    "entries"
+  ],
+  "author": "Erik Toth <totherik@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/totherik/array-entries/issues"
+  },
+  "homepage": "https://github.com/totherik/array-entries",
+  "dependencies": {
+    "istanbul": "^0.2.11",
+    "jshint": "^2.5.1",
+    "tape": "^2.13.3"
+  }
+}
