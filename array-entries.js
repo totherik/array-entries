@@ -18,7 +18,7 @@
     function ArrayIterator(obj) {
         this.iteratedObject = ToObject(obj);
         this.index = 0;
-        this.kind = "key+value";
+        this.kind = 'key+value';
     }
 
     ArrayIterator.prototype.next = function next() {
@@ -44,15 +44,15 @@
 
         self.index += 1;
 
-        if (kind === "key") {
+        if (kind === 'key') {
             return { value: index, done: false };
         }
 
-        if (kind === "value") {
+        if (kind === 'value') {
             return { value: object[index], done: false };
         }
 
-        if (kind === "key+value") {
+        if (kind === 'key+value') {
             return { value: [ index, object[index] ], done: false };
         }
 

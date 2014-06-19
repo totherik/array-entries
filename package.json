@@ -9,7 +9,7 @@
   "scripts": {
     "test": "tape test/*.js",
     "cover": "istanbul cover tape -- test/*.js",
-    "lint": "jshint -c .jshintrc arra-entries.js"
+    "lint": "jshint -c .jshintrc array-entries.js"
   },
   "repository": {
     "type": "git",
