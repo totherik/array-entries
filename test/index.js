@@ -6,6 +6,8 @@ var entries = require('../array-entries').arrayEntries;
 
 test('types', function (t) {
 
+    t.equal(typeof Array.prototype.entries, 'function');
+
     t.throws(function () {
         entries(null);
     });
@@ -58,6 +60,23 @@ test('types', function (t) {
         entries(NaN);
     });
 
+    t.end();
+});
+
+
+test('polyfill', function (t) {
+    var iter;
+
+    iter = ['a', 'b', 'c'].entries();
+    iter.kind = '';
+
+    t.equal(typeof iter, 'object');
+    t.equal(iter.constructor.name, 'ArrayIterator');
+    t.equal(typeof iter.next, 'function');
+
+    t.throws(function () {
+        iter.next();
+    });
     t.end();
 });
 

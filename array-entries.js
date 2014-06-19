@@ -60,11 +60,12 @@
     };
 
 
-    exports.arrayEntries =
-        typeof Array.prototype.entries === 'function' ?
-            Function.prototype.call.bind(Array.prototype.entries) :
-            function entries(obj) {
-                return new ArrayIterator(obj);
-            };
+    if (typeof Array.prototype.entries !== 'function') {
+        Array.prototype.entries = function entries() {
+            return new ArrayIterator(this);
+        };
+    }
+
+    exports.arrayEntries = Function.prototype.call.bind(Array.prototype.entries);
 
 }(typeof module !== 'undefined' ? module.exports : window));
